@@ -1,19 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 // better than fetch --> auto JSON coversion
 
 
 export default function SignUpPage() {
+    const router= useRouter()
     const [user, setUser] = useState({
         email: "",
         password: "",
         username: "",
     });
+
+    const [ButtonDisabled,setButtonDisabled]=React.useState(false)
     const onSignUp = () => {};
+    useEffect(()=>{
+        if (user.email.length>0 && user.password.length>0 && user.username.length>0) {
+            setButtonDisabled(false)
+        }
+        else{
+            setButtonDisabled(true)
+        }
+    },[user])
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100 dark:bg-gray-900">
