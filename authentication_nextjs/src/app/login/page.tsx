@@ -1,17 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import toast from "react-hot-toast";
+
 // better than fetch --> auto JSON coversion
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [ButtonDisabled, setButtonDisabled] = React.useState(false);
+  const [Loading, setLoading] = React.useState(false);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const onLogIn = () => {};
+  const onLogIn = async () => {
+    try {
+      setLoading(true)
+      const response =await axios.post("/api/users/login",user)
+      console.log("Login Success",response.data)
+      toast.success("Login success")
+      router.push("/profile")
+    } catch (error: any) {
+      console.log("Login Failed", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  });
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100 dark:bg-gray-900">
@@ -62,7 +87,7 @@ export default function LoginPage() {
           onClick={onLogIn}
           className="w-full py-3 px-4 font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
         >
-         Login
+          Login
         </button>
 
         <div className="text-center">
@@ -71,7 +96,7 @@ export default function LoginPage() {
             href="/signup"
             className="text-sm text-blue-500 hover:underline dark:text-blue-400"
           >
-           Visit Signup Page
+            Visit Signup Page
           </Link>
         </div>
       </div>
