@@ -1,7 +1,7 @@
 import { connect } from "@/dbconfig/dbconfig";
 import User from "@/models/usermodel.js";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 connect();
 
@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
       );
     }
     //  hashing the password
-    const salt = await bcryptjs.genSalt(10);
-    const HashedPassword = await bcryptjs.hash(password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const HashedPassword = await bcrypt.hash(password, salt);
 
     // saving User
     const newUser = new User({
