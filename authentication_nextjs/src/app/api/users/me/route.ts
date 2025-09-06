@@ -1,6 +1,6 @@
 import { getDataToken } from "@/helper/getdatatoken";
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/usermodel";
+import User from "@/models/usermodel.js";
 import { connect } from "@/dbconfig/dbconfig";
 connect();
 export async function GET(request: NextRequest) {
