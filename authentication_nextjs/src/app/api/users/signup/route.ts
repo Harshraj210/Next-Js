@@ -32,6 +32,8 @@ export async function POST(request: NextRequest) {
     // saving to database
     const savedUser = await newUser.save();
     console.log(savedUser);
+
+    // sending verification mail
     return NextResponse.json({
       message: "User created successfully",
       success: true,
