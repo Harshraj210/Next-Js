@@ -8,7 +8,7 @@ import axios from "axios";
 export default function ProfilePage() {
   const router = useRouter();
   const [data, setData] = useState("nothing");
-
+  
   const Logout = async () => {
     try {
       await axios.get("/api/users/logout"); 
