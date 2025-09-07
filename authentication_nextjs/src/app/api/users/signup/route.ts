@@ -2,7 +2,7 @@ import { connect } from "@/dbconfig/dbconfig";
 import User from "@/models/usermodel.js";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-
+import mailer
 connect();
 
 export async function POST(request: NextRequest) {

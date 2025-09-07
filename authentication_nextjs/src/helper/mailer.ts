@@ -17,19 +17,24 @@ export const sendmail = async ({ email, emailType, userId }: any) => {
         forgotPasswordTokenExpiry: Date.now() + 3600000,
       });
     }
-    const transport =  nodemailer.createTransport({
-       'host' : 'sandbox.smtp.mailtrap.io',
-        'port' : 2525,
-        'username' : 'cdca3156754fe2',
-        'password' :'****8432',
-        'className' : 'Smtp'
-    })
-    const MailOptions={
-      from:"nh1750501@gmail.com",
-      to:email,
-      subject:emailType==="VERIFY"? "Verify your Email":"Reset your Password",
-      html:`<p>Click <a href =${process.env.domain}/verifyemail?token=${Hashedtoken}">Here </a> to ${emailType==="VERIFY"? "Verify your Email":"Reset your Password"}</p>`
-    }
+     const transport = nodemailer.createTransport({
+      host: "sandbox.smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: "cdca3156754fe2",   // your Mailtrap username
+        pass: "****8432",        // your Mailtrap password
+      },
+    });
+    const MailOptions = {
+      from: "nh1750501@gmail.com",
+      to: email,
+      subject:
+        emailType === "VERIFY" ? "Verify your Email" : "Reset your Password",
+      html: `<p>Click <a href="${process.env.domain}/verifyemail?token=${Hashedtoken}">Here</a> to ${
+        emailType === "VERIFY" ? "verify your email" : "reset your password"
+      }</p>`,
+    };
+
     const mailresponse = await transport.sendMail(MailOptions);
         return mailresponse;
   } catch (error: any) {
