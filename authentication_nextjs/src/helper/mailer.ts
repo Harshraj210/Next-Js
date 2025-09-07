@@ -17,27 +17,47 @@ export const sendmail = async ({ email, emailType, userId }: any) => {
         forgotPasswordTokenExpiry: Date.now() + 3600000,
       });
     }
-     const transport = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+    //  var transport = nodemailer.createTransport({
+    //         host: process.env.MAILTRAP_HOST,
+    //         port: parseInt(process.env.MAILTRAP_PORT!),
+    //         auth: {
+    //             user: process.env.MAILTRAP_USER,
+    //             pass: process.env.MAILTRAP_PASS,
+    //         },
+    //     });
+    console.log("--- Preparing to send email ---");
+    console.log("Mailtrap Host:", process.env.MAILTRAP_HOST);
+    console.log("Mailtrap User:", process.env.MAILTRAP_USER);
+
+    console.log("Mailtrap Pass exists:", !!process.env.MAILTRAP_PASS);
+
+    const transport = nodemailer.createTransport({
+      host: process.env.MAILTRAP_HOST,
+      port: parseInt(process.env.MAILTRAP_PORT!),
       auth: {
-        user: "cdca3156754fe2",   // your Mailtrap username
-        pass: "****8432",        // your Mailtrap password
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS,
       },
     });
+
+    console.log("Nodemailer transport created successfully.");
     const MailOptions = {
       from: "nh1750501@gmail.com",
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your Email" : "Reset your Password",
-      html: `<p>Click <a href="${process.env.domain}/verifyemail?token=${Hashedtoken}">Here</a> to ${
-        emailType === "VERIFY" ? "verify your email" : "reset your password"
+      html: `<p>Click <a href =${
+        process.env.domain
+      }/verifyemail?token=${Hashedtoken}">Here </a> to ${
+        emailType === "VERIFY" ? "Verify your Email" : "Reset your Password"
       }</p>`,
     };
 
     const mailresponse = await transport.sendMail(MailOptions);
-        return mailresponse;
+    console.log("Email sent Successfully ");
+    return mailresponse;
   } catch (error: any) {
+    console.error("!!! FAILED TO SEND EMAIL !!!", error);
     throw new Error(error.message);
   }
 };
