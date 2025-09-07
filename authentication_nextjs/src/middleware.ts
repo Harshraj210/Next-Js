@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 // Middleware in next.js runs before a request is completed.
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isPublicPath = path === "/login" || path === "/signup";
+  const isPublicPath = path === "/login" || path === "/signup" || path === "/verifyemail";
   const Token = request.cookies.get("token")?.value || "";
   if (isPublicPath && Token) {
     // If user already logged in (has a token) but tries to go to /login or /signup,
@@ -18,5 +18,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   //  matcher: tells Next.js which routes this middleware should run on.
-  matcher: ["/", "/login", "/signup", "/profile"],
+  matcher: ["/", "/login", "/signup", "/profile","/verifyemail"],
 };
