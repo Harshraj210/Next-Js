@@ -1,8 +1,12 @@
-import { Client, Account, Avatars } from "appwrite";
+import { Client, Account, Avatars, Databases, Storage } from "appwrite";
+
 import env from "@/app/env";
-const client = new Client()
-  .setEndpoint("https://fra.cloud.appwrite.io/v1")
-  .setProject("68be8c130030e24597e2");
+const client = new Client().setEndpoint(env.endpoint).setProject(env.projectId);
 const account = new Account(client);
+const avatars = new Avatars(client);
+const databases = new Databases(client);
+const storage = new Storage(client);
 const result = await account.get();
-console.log(result);
+
+
+export default { Client, Account, Avatars, Databases, Storage }
