@@ -1,0 +1,6 @@
+import env from "./app/env"
+export const db= "main-stackflow"
+export const questioncollection = "questions"
+export const answercollection = "answers"
+export const votecollection = "votes"
+export const questionAttactchment = "question-attachment"
