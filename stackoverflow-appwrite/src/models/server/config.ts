@@ -9,7 +9,12 @@ import {
 } from "node-appwrite";
 
 const client = new Client();
-client.setEndpoint(env.endpoint).setProject(env.projectId).setKey(env.apikey);
+client
+// SDK --> Software Development Kit  basically a ready-made library of functions that let you talk to Appwrite (so you don’t have to manually send HTTP requests).
+  .setEndpoint(env.endpoint)
+  // Tells SDK where your Appwrite server lives
+  .setProject(env.projectId)
+  .setKey(env.apikey);
 
 const avatars = new Avatars(client);
 const databases = new Databases(client);
