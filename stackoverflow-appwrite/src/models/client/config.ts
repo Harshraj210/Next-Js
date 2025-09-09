@@ -9,4 +9,4 @@ const storage = new Storage(client);
 const result = await account.get();
 
 
-export default { Client, Account, Avatars, Databases, Storage }
+export default { client, account, avatars, databases, storage }
