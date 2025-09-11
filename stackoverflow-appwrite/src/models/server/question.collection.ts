@@ -26,25 +26,25 @@ export default async function createQuestionCollection() {
      console.error("Error creating questions collection:", error.message);
   }
 
-  // creataing indexs
+  //  creataing indexs
 
-  // await Promise.all([
-  //   databases.createIndex(
-  //     db,
-  //     questioncollection,
-  //     "title",
-  //     IndexType.Fulltext,
-  //     ["title"],
-  //     ["asc"]
-  //   ),
-  //    databases.createIndex(
-  //     db,
-  //     questioncollection,
-  //     "content",
-  //     IndexType.Fulltext,
-  //     ["content"],
-  //     ["asc"]
-  //   )
+   await Promise.all([
+     databases.createIndex(
+       db,
+       questioncollection,
+       "title",
+       IndexType.Fulltext,
+       ["title"],
+       ["asc"]
+     ),
+      databases.createIndex(
+       db,
+       questioncollection,
+       "content",
+       IndexType.Fulltext,
+       ["content"],
+       ["asc"]
+     )
 
-  // ])
+   ])
 }
