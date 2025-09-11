@@ -24,7 +24,46 @@ interface Iauthstore {
     email: string,
     password: string
   ): Promise<{ success: boolean; errror?: AppwriteException | null }>;
-  logout():Promise<void>
+  logout(): Promise<void>;
 }
 
-export const useAuthstore=create<Iauthstore>()
+export const useAuthstore = create<Iauthstore>()(
+  persist(
+    immer((set) => ({
+      sessions: null,
+      jwt: null,
+      user: null,
+      hydrated:false,
+      sethydrated() {
+        set({hydrated:true})
+        
+      },
+
+      async verifySession() {
+        try {
+          
+        } catch (error) {
+          console.error(error)
+        }
+        
+      },
+      async login(email,password){
+
+      },
+      async createAccount(name,email,password){
+
+      },
+      async logout(){
+
+      }
+    })),
+    {
+      name: "auth",
+      onRehydrateStorage() {
+        return (state, error) => {
+          if (!error) state?.sethydrated;
+        };
+      },
+    }
+  )
+);
