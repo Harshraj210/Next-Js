@@ -42,7 +42,7 @@ export const useAuthstore = create<Iauthstore>()(
       hydrated: false,
 
       sethydrated() {
-        // hydration --> restoring data from localstoage
+        // hydration --> restoring data from localstoage.
         set({ hydrated: true });
       },
 
