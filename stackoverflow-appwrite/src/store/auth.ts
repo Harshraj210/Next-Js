@@ -1,4 +1,5 @@
 import { create } from "zustand";
+// like contextapi
 import { immer } from "zustand/middleware/immer";
 // persist --> saves the counter state in localStorage. Refreshing the page won’t reset it
 import { persist } from "zustand/middleware";
@@ -32,13 +33,16 @@ interface Iauthstore {
 
 export const useAuthstore = create<Iauthstore>()(
   persist(
+    // persist --> saving file to localstorage (without this after refreshing data is gone)
     immer((set) => ({
+      // immmer --> it lets you write code directly  (but behind it is immutable)
       sessions: null,
       jwt: null,
       user: null,
       hydrated: false,
 
       sethydrated() {
+        // hydration --> restoring data from localstoage
         set({ hydrated: true });
       },
 
